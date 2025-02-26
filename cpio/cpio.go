@@ -54,6 +54,10 @@ func (ce *CpioEntry) Copy(dst io.Writer) (written int64, err error) {
 	return io.Copy(dst, ce.payload)
 }
 
+func (ce *CpioEntry) TeeReader(w io.Writer) io.Reader {
+	return io.TeeReader(ce.payload, w)
+}
+
 func (ce *CpioEntry) HasPayload() bool {
 	return ce.payload != nil
 }
